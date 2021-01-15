@@ -1,3 +1,4 @@
+
 /**
  * Returns a Promise with an object containing the latitude and longitude
  * coordinates of the specified location.
@@ -10,6 +11,7 @@
 export const getCoordinates = async (location) => {
     const apiKey = process.env.REACT_APP_MAPQUEST_APIKEY;
     const apiUrl = 'http://www.mapquestapi.com/geocoding/v1/address';
+    console.log(`${apiUrl}?key=${apiKey}&location=${location}`);
     const response = await fetch(`${apiUrl}?key=${apiKey}&location=${location}`)
     const data = await response.json();
     return data.results[0].locations[0].latLng;

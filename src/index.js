@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { getCoordinates } from './util.js'
+
+const WeatherSummary = ({ location }) => {
+  console.log(getCoordinates(location));
+  return <h1>Hello</h1>;
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <WeatherSummary location='Fresno,CA' />
   </React.StrictMode>,
   document.getElementById('root')
 );
