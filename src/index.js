@@ -2,18 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import WeatherSummary from './WeatherSummary';
+import WeatherDetails from './WeatherDetails'
 
 ReactDOM.render(
   <React.StrictMode>
-    <WeatherSummary 
+    <WeatherDetails
       location='Fresno,CA'
       icon='https://picsum.photos/id/1/200/200'
       dayOfWeek='Monday'
       weatherCondition='Light rain' 
-      currentTemp='38'
-      highTemp='56'
-      lowTemp='34'
+      currentTemp={38}
+      highTemp={60}
+      lowTemp={32}
       precipitation='10'
       humidity='64'
       windSpeed='6'
