@@ -1,18 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { getCoordinates } from './util.js'
-
-const WeatherSummary = ({ location }) => {
-  console.log(getCoordinates(location));
-  return <h1>Hello</h1>;
-}
+import WeatherSummary from './WeatherSummary';
 
 ReactDOM.render(
   <React.StrictMode>
-    <WeatherSummary location='Fresno,CA' />
+    <WeatherSummary 
+      location='Fresno,CA'
+      icon='https://picsum.photos/id/1/200/200'
+      dayOfWeek='Monday'
+      weatherCondition='Light rain' 
+      currentTemp='38'
+      highTemp='56'
+      lowTemp='34'
+      precipitation='10'
+      humidity='64'
+      windSpeed='6'
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );
