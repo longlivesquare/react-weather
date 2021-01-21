@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { getWeatherData } from './util'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to hot lod.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isLoading: true,
+      weather: {},
+      error: null
+    }
+  }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        const weatherData = await getWeatherData(latitude, longitude)
+        this.setState({
+          weather: weatherData,
+          isLoading: false,
+        })
+      }, 
+      (error) => console.log(error))
+  }
+
+  render() {
+    return (
+      <div>
+        {this.state.isLoading
+          ? <div>loading</div>
+          : <div>Weather Data</div>}
+      </div>
+    )
+  }
 }
 
 export default App;

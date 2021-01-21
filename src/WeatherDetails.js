@@ -1,21 +1,12 @@
 import PropTypes from 'prop-types';
-import Temperature from './Temperature';
 
 const WeatherSummary = (props) => {
-    var tempSym = 'F';
-    var windSym = 'mph';
-
-    if (props.units === 'metric') {
-        tempSym = 'C'
-        windSym = 'kph';
-    }
-
     return (
-        <div>
+        <div className='WeatherDetail-all'>
             <p>{props.location}</p>
             <p>{props.dayOfWeek}</p>
             <p>{props.weatherCondition}</p>
-            <div>
+            <div className='WeatherDetail'>
                 <div>
                     <img src={props.icon} alt='weather icon' />
                     <span>{props.currentTemp}</span>
@@ -23,7 +14,7 @@ const WeatherSummary = (props) => {
                     <span>|</span>
                     <span>C&deg;</span>
                 </div>
-                <div>
+                <div className="WeatherDetail-stats">
                     <p>High: {props.highTemp}&deg;</p>
                     <p>Low: {props.lowTemp}&deg;</p>
                     <p>Precipitation: {props.precipitation}%</p>

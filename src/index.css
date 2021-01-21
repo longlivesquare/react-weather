@@ -29,3 +29,14 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.WeatherDetail-all {
+  background-color: #AEAEAE;
+  border: 235px;
+}
+
+.WeatherDetail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
