@@ -33,6 +33,7 @@ body {
 .WeatherDetail-all {
   background-color: #AEAEAE;
   border: 235px;
+  padding: 10px;
 }
 
 .WeatherDetail {

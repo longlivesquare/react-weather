@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App'
+import FiveDayForecast from './FiveDayForecast';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import WeatherDetails from './WeatherDetails'
 
 ReactDOM.render(
   <React.StrictMode>
-    <WeatherDetails
+    {/* <WeatherDetails
       location='Fresno,CA'
       icon='https://picsum.photos/id/1/200/200'
       dayOfWeek='Monday'
@@ -18,7 +19,8 @@ ReactDOM.render(
       precipitation='10'
       humidity='64'
       windSpeed='6'
-    />
+    /> */}
+    <FiveDayForecast />
   </React.StrictMode>,
   document.getElementById('root')
 );

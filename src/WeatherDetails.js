@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const WeatherSummary = (props) => {
+const WeatherDetails = (props) => {
     return (
         <div className='WeatherDetail-all'>
             <p>{props.location}</p>
@@ -26,7 +26,7 @@ const WeatherSummary = (props) => {
     );
 };
 
-WeatherSummary.propTypes = {
+WeatherDetails.propTypes = {
     location: PropTypes.string.isRequired,
     dayOfWeek: PropTypes.string.isRequired,
     weatherCondition: PropTypes.string.isRequired,
@@ -40,4 +40,4 @@ WeatherSummary.propTypes = {
     windSpeed: PropTypes.number.isRequired
 };
 
-export default WeatherSummary;
+export default WeatherDetails;
