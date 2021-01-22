@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
+import WeatherIcon from './WeatherIcon';
 
 const WeatherDetails = (props) => {
     return (
         <div className='WeatherDetail-all'>
             <p>{props.location}</p>
-            <p>{props.dayOfWeek}</p>
+            <p>{props.DayOfWeek}</p>
             <p>{props.weatherCondition}</p>
             <div className='WeatherDetail'>
                 <div>
-                    <img src={props.icon} alt='weather icon' />
+                    <WeatherIcon iconId={props.icon}/>
                     <span>{props.currentTemp}</span>
                     <span>F&deg;</span>
                     <span>|</span>

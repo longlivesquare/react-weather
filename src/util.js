@@ -27,3 +27,9 @@ export const getWeatherData = async (latitude, longitude, units='imperial') => {
     const { current, daily } = await response.json();
     return { current, daily };
 };
+
+export const millisecondsToDayOfWeek = (millis) => {
+    const day = new Date(millis);
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    return days[day.getDay()];
+};
