@@ -11,8 +11,11 @@ class App extends React.Component {
     this.state = {
       isLoading: true,
       weather: null,
-      error: null
+      error: null,
+      activeDay: 0
     };
+
+    this.handleActiveDayChange = this.handleActiveDayChange.bind(this);
   }
 
   componentDidMount() {
@@ -50,10 +53,15 @@ class App extends React.Component {
     )
   }
 
+  handleActiveDayChange(newActiveDay) {
+    this.setState({
+      activeDay: newActiveDay
+    });
+  };
+
   render() {
 
-    const { isLoading, weather, error } = this.state;
-
+    const { isLoading, weather, error, activeDay } = this.state;
     // Instead of doing nested ternary statements, I pulled this section out
     // into a variable to make the code a little bit easier to read. The
     // 'contets' variable just stores some JSX, and we can tell React to render
@@ -66,16 +74,16 @@ class App extends React.Component {
             <>
               <WeatherDetails
                   location="Fresno"
-                  dayOfWeek={millisecondsToDayOfWeek(weather.current.dt*1000)}
-                  weatherCondition={weather.current.weather[0].description}
-                  icon={weather.current.weather[0].icon}
+                  dayOfWeek={millisecondsToDayOfWeek(1000*weather.daily[activeDay].dt)}
+                  weatherCondition={weather.daily[activeDay].weather[0].description}
+                  icon={weather.daily[activeDay].weather[0].icon}
                   units="imperial"
-                  currentTemp={weather.current.temp}
-                  lowTemp={weather.daily[0].temp.min}
-                  highTemp={weather.daily[0].temp.max}
-                  precipitation={10} 
-                  humidity={30} 
-                  windSpeed={5}
+                  currentTemp={activeDay === 0 ? weather.current.temp: '-'}
+                  lowTemp={weather.daily[activeDay].temp.min}
+                  highTemp={weather.daily[activeDay].temp.max}
+                  precipitation={weather.daily[activeDay].pop*100} 
+                  humidity={weather.daily[activeDay].humidity} 
+                  windSpeed={weather.daily[activeDay].wind_speed}
               />
               <FiveDayForecast forecast={weather.daily.map(data => {
                 return {
@@ -84,7 +92,10 @@ class App extends React.Component {
                   highTemp: data.temp.max,
                   lowTemp: data.temp.min
                 }
-              })} />
+              })} 
+                activeDay={activeDay}
+                onActiveDayChanged={this.handleActiveDayChange}
+              />
             </>
         }
       </>
