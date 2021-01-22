@@ -18,7 +18,7 @@ const WeatherDetails = (props) => {
                 <div>
                     <p>High: {props.highTemp}&deg;</p>
                     <p>Low: {props.lowTemp}&deg;</p>
-                    <p>Precipitation: {props.precipitation}%</p>
+                    <p>Precipitation: {props.precipitation.toFixed(0)}%</p>
                     <p>Humidity: {props.humidity}%</p>
                     <p>Wind: {props.windSpeed} {props.units === 'imperial' ? 'mph' : 'km/h'}</p>
                 </div>
