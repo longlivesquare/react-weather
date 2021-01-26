@@ -1,6 +1,7 @@
 import React from 'react';
 import FiveDayForecast from './FiveDayForecast';
-import { getWeatherData, millisecondsToDayOfWeek } from './util.js';
+import SearchBar from './SearchBar';
+import { getCoordinates, getWeatherData, millisecondsToDayOfWeek } from './util.js';
 import WeatherDetails from './WeatherDetails';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
     };
 
     this.handleActiveDayChange = this.handleActiveDayChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -53,11 +55,44 @@ class App extends React.Component {
     )
   }
 
+ async componentDidUpdate() {
+    if (this.state.longitude) {
+      try {
+          // If we successfully get data from the weather API, then we
+          // update our state with the new data that we got.
+          const weatherData = await getWeatherData(this.state.latitude, this.state.longitude);
+          this.setState({
+            weather: weatherData,
+            isLoading: false,
+          });
+        } catch(error) {
+          // If there's a problem getting data from the API, we want to inform
+          // the user that there was an error.
+          this.setState({
+            error: 'Oh no 😔 We were unable to get weather data at this time.',
+            isLoading: false
+          });
+        }
+    }
+  }
+  
+
   handleActiveDayChange(newActiveDay) {
     this.setState({
       activeDay: newActiveDay
     });
   };
+
+  async handleSearchSubmit(location) {
+    console.log(location)
+    const {lat, lng} = await getCoordinates(location);
+    console.log(getCoordinates(location))
+    console.log(lat, lng)
+    this.setState({
+      longitude: lng,
+      latitude: lat
+    });
+  }
 
   render() {
 
@@ -72,6 +107,7 @@ class App extends React.Component {
           ? <p>{error}</p>
           : weather &&
             <>
+              <SearchBar handleSearch={this.handleSearchSubmit} />
               <WeatherDetails
                   location="Fresno"
                   dayOfWeek={millisecondsToDayOfWeek(1000*weather.daily[activeDay].dt)}
