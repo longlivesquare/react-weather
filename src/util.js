@@ -10,7 +10,7 @@
  */
 export const getCoordinates = async (location) => {
     const apiKey = process.env.REACT_APP_MAPQUEST_APIKEY;
-    const apiUrl = 'http://www.mapquestapi.com/geocoding/v1/address';
+    const apiUrl = 'https://www.mapquestapi.com/geocoding/v1/address';
     const response = await fetch(`${apiUrl}?key=${apiKey}&location=${location}`)
     const data = await response.json();
     return data.results[0].locations[0].latLng;
@@ -19,7 +19,7 @@ export const getCoordinates = async (location) => {
 export const getLocationName = async (lat, lon) => {
     const location = lat + ',' + lon;
     const apiKey = process.env.REACT_APP_MAPQUEST_APIKEY;
-    const apiURL = 'http://www.mapquestapi.com/geocoding/v1/reverse';
+    const apiURL = 'https://www.mapquestapi.com/geocoding/v1/reverse';
     const response = await fetch(`${apiURL}?key=${apiKey}&location=${location}`)
     const data = await response.json();
     console.log(data)
