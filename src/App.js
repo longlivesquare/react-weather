@@ -1,6 +1,7 @@
 import React from 'react';
 import FiveDayForecast from './FiveDayForecast';
-import { getWeatherData, millisecondsToDayOfWeek } from './util.js';
+import SearchBar from './SearchBar';
+import { getCoordinates, getLocationName, getWeatherData, millisecondsToDayOfWeek } from './util.js';
 import WeatherDetails from './WeatherDetails';
 
 class App extends React.Component {
@@ -12,10 +13,14 @@ class App extends React.Component {
       isLoading: true,
       weather: null,
       error: null,
-      activeDay: 0
+      activeDay: 0,
+      latitude: null,
+      longitude: null,
+      city: 'Fresno'
     };
 
     this.handleActiveDayChange = this.handleActiveDayChange.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -53,11 +58,43 @@ class App extends React.Component {
     )
   }
 
+ async componentDidUpdate(prevProps, prevState) {
+    if (prevState.latitude !== this.state.latitude) {
+      try {
+          // If we successfully get data from the weather API, then we
+          // update our state with the new data that we got.
+          const weatherData = await getWeatherData(this.state.latitude, this.state.longitude);
+          this.setState({
+            weather: weatherData,
+            isLoading: false,
+          });
+        } catch(error) {
+          // If there's a problem getting data from the API, we want to inform
+          // the user that there was an error.
+          this.setState({
+            error: 'Oh no 😔 We were unable to get weather data at this time.',
+            isLoading: false
+          });
+        }
+    }
+  }
+  
+
   handleActiveDayChange(newActiveDay) {
     this.setState({
       activeDay: newActiveDay
     });
   };
+
+  async handleSearchSubmit(location) {
+    const {lat, lng} = await getCoordinates(location);
+    const newCity = await getLocationName(lat, lng);
+    this.setState({
+      longitude: lng,
+      latitude: lat,
+      city: newCity
+    });
+  }
 
   render() {
 
@@ -72,8 +109,9 @@ class App extends React.Component {
           ? <p>{error}</p>
           : weather &&
             <>
+              <SearchBar handleSearch={this.handleSearchSubmit} />
               <WeatherDetails
-                  location="Fresno"
+                  location={this.state.city}
                   dayOfWeek={millisecondsToDayOfWeek(1000*weather.daily[activeDay].dt)}
                   weatherCondition={weather.daily[activeDay].weather[0].description}
                   icon={weather.daily[activeDay].weather[0].icon}

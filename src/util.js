@@ -16,6 +16,16 @@ export const getCoordinates = async (location) => {
     return data.results[0].locations[0].latLng;
 };
 
+export const getLocationName = async (lat, lon) => {
+    const location = lat + ',' + lon;
+    const apiKey = process.env.REACT_APP_MAPQUEST_APIKEY;
+    const apiURL = 'http://www.mapquestapi.com/geocoding/v1/reverse';
+    const response = await fetch(`${apiURL}?key=${apiKey}&location=${location}`)
+    const data = await response.json();
+    console.log(data)
+    return data.results[0].locations[0].adminArea5;
+}
+
   
 export const getWeatherData = async (latitude, longitude, units='imperial') => {
     const apiUrl = 'https://api.openweathermap.org/data/2.5/onecall';
