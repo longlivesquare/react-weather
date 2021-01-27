@@ -3,18 +3,20 @@ import { useState } from 'react';
 const SearchBar = ({handleSearch}) => {
     const [location, setLocation] = useState('');
 
-    const onSearch = () => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
         return handleSearch(location);
     }
 
     return (
         <div>
-            <form onSubmit={onSearch} action='#'>
+            <form onSubmit={handleSubmit}>
                 <input 
                     type="search" 
                     id="locationSearch" 
                     value={location}
                     onChange={e => setLocation(e.target.value)}
+                    placeholder='Location'
                     required
                 />
                 <button type='submit'>
