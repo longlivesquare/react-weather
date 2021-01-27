@@ -1,5 +1,5 @@
 const WeatherIcon = ({ iconId }) => {
-    const url = `http://openweathermap.org/img/wn/${iconId}@2x.png`
+    const url = `https://openweathermap.org/img/wn/${iconId}@2x.png`
     return (
         <img 
             src={url} 
